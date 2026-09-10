@@ -1,0 +1,25 @@
+{
+  "name": "personal-finance-manager",
+  "version": "1.0.0",
+  "description": "A modern, responsive, offline-first **Personal Finance Manager** built using only **HTML, CSS, and JavaScript**.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jami-008/Personal-Finance-Management-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jami-008/Personal-Finance-Management-System/issues"
+  },
+  "homepage": "https://github.com/jami-008/Personal-Finance-Management-System#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
+    "@capacitor/core": "^8.5.1"
+  }
+}
