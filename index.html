@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  />
+
+  <meta
+    name="description"
+    content="Offline Personal Finance Manager"
+  />
+
+  <meta name="theme-color" content="#0f172a" />
+
+  <title>Personal Finance Manager</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- =====================================================
+       APP
+  ====================================================== -->
+  <div class="app-shell">
+
+    <!-- ===================================================
+         DESKTOP SIDEBAR
+    ==================================================== -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <span>৳</span>
+        </div>
+
+        <div class="brand-text">
+          <h1>Finance Manager</h1>
+          <p>Personal finance dashboard</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button
+          class="nav-item active"
+          data-page-target="dashboard"
+          type="button"
+        >
+          <span class="nav-icon">⌂</span>
+          <span>Dashboard</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page-target="daily"
+          type="button"
+        >
+          <span class="nav-icon">↗</span>
+          <span>Daily Expense</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page-target="main-cost"
+          type="button"
+        >
+          <span class="nav-icon">▦</span>
+          <span>Main Cost</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page-target="debt"
+          type="button"
+        >
+          <span class="nav-icon">⇄</span>
+          <span>Debt / Loan</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page-target="income"
+          type="button"
+        >
+          <span class="nav-icon">＋</span>
+          <span>Income</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page-target="analytics"
+          type="button"
+        >
+          <span class="nav-icon">▥</span>
+          <span>Analytics</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page-target="report"
+          type="button"
+        >
+          <span class="nav-icon">⇩</span>
+          <span>Report & Backup</span>
+        </button>
+
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="storage-status">
+          <span class="storage-dot"></span>
+          <div>
+            <strong>Offline Storage</strong>
+            <small>Saved on this device</small>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+
+    <!-- ===================================================
+         MAIN CONTENT
+    ==================================================== -->
+    <main class="main-content">
+
+      <!-- =================================================
+           TOPBAR
+      ================================================== -->
+      <header class="topbar">
+
+        <div class="topbar-left">
+          <div>
+            <p class="eyebrow">Personal Finance</p>
+            <h2 id="pageTitle">Dashboard</h2>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+
+          <div class="month-switcher">
+
+            <button
+              class="icon-btn"
+              id="previousMonthBtn"
+              type="button"
+              aria-label="Previous month"
+            >
+              ‹
+            </button>
+
+            <input
+              type="month"
+              id="monthPicker"
+              aria-label="Select month"
+            />
+
+            <button
+              class="icon-btn"
+              id="nextMonthBtn"
+              type="button"
+              aria-label="Next month"
+            >
+              ›
+            </button>
+
+          </div>
+
+          <button
+            class="primary-btn desktop-quick-add"
+            id="topQuickAddBtn"
+            type="button"
+          >
+            <span>＋</span>
+            Add Expense
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- =================================================
+           CONTENT WRAPPER
+      ================================================== -->
+      <div class="content-wrapper">
+
+
+        <!-- =================================================
+             DASHBOARD PAGE
+        ================================================== -->
+        <section
+          class="page-section active"
+          data-page="dashboard"
+        >
+
+          <div class="welcome-card">
+
+            <div>
+              <p class="section-kicker">MONTH OVERVIEW</p>
+
+              <h3 id="dashboardMonthTitle">
+                Monthly Finance Overview
+              </h3>
+
+              <p class="muted-text">
+                Track your daily expenses, fixed costs,
+                income and debt in one place.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              class="secondary-btn"
+              id="dashboardPdfBtn"
+            >
+              Download PDF
+            </button>
+
+          </div>
+
+
+          <!-- SUMMARY CARDS -->
+          <div class="summary-grid">
+
+            <article class="summary-card accent-card">
+              <div class="summary-card-head">
+                <span>Total Expense</span>
+                <span class="summary-symbol">৳</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryTotalExpense"
+              >
+                ৳0
+              </strong>
+
+              <small>Main + Daily costs</small>
+            </article>
+
+
+            <article class="summary-card">
+              <div class="summary-card-head">
+                <span>Daily Expense</span>
+                <span class="summary-symbol">↗</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryDailyExpense"
+              >
+                ৳0
+              </strong>
+
+              <small>Daily transaction total</small>
+            </article>
+
+
+            <article class="summary-card">
+              <div class="summary-card-head">
+                <span>Main Cost</span>
+                <span class="summary-symbol">▦</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryMainCost"
+              >
+                ৳0
+              </strong>
+
+              <small>Fixed / special costs</small>
+            </article>
+
+
+            <article class="summary-card">
+              <div class="summary-card-head">
+                <span>Avg. Per Day</span>
+                <span class="summary-symbol">÷</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryAverageDaily"
+              >
+                ৳0
+              </strong>
+
+              <small>Average daily expense</small>
+            </article>
+
+
+            <article class="summary-card income-card">
+              <div class="summary-card-head">
+                <span>Total Income</span>
+                <span class="summary-symbol">＋</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryIncome"
+              >
+                ৳0
+              </strong>
+
+              <small>Recorded only</small>
+            </article>
+
+
+            <article class="summary-card receivable-card">
+              <div class="summary-card-head">
+                <span>I Will Receive</span>
+                <span class="summary-symbol">↓</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryReceivable"
+              >
+                ৳0
+              </strong>
+
+              <small>Pending receivable</small>
+            </article>
+
+
+            <article class="summary-card payable-card">
+              <div class="summary-card-head">
+                <span>I Need To Pay</span>
+                <span class="summary-symbol">↑</span>
+              </div>
+
+              <strong
+                class="summary-value"
+                id="summaryPayable"
+              >
+                ৳0
+              </strong>
+
+              <small>Pending payable</small>
+            </article>
+
+          </div>
+
+
+          <!-- DASHBOARD GRID -->
+          <div class="dashboard-grid">
+
+            <!-- DAILY CHART -->
+            <article class="panel panel-large">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    DAILY SPENDING
+                  </p>
+
+                  <h3>Daily Expense Chart</h3>
+                </div>
+
+                <span
+                  class="panel-badge"
+                  id="dailyChartTotalBadge"
+                >
+                  ৳0
+                </span>
+              </div>
+
+              <div
+                class="chart-container"
+                id="dashboardDailyChart"
+              >
+                <div class="chart-empty-state">
+                  <span>▥</span>
+                  <p>No daily expenses yet.</p>
+                </div>
+              </div>
+
+            </article>
+
+
+            <!-- QUICK STATS -->
+            <article class="panel">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    QUICK INSIGHT
+                  </p>
+
+                  <h3>This Month</h3>
+                </div>
+              </div>
+
+              <div class="insight-list">
+
+                <div class="insight-item">
+                  <span>Highest spending day</span>
+                  <strong id="highestSpendDay">—</strong>
+                </div>
+
+                <div class="insight-item">
+                  <span>Highest daily amount</span>
+                  <strong id="highestSpendAmount">৳0</strong>
+                </div>
+
+                <div class="insight-item">
+                  <span>Top daily category</span>
+                  <strong id="topDailyCategory">—</strong>
+                </div>
+
+                <div class="insight-item">
+                  <span>Total transactions</span>
+                  <strong id="totalTransactionCount">0</strong>
+                </div>
+
+              </div>
+
+            </article>
+
+          </div>
+
+
+          <!-- RECENT TRANSACTIONS -->
+          <article class="panel">
+
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">
+                  RECENT
+                </p>
+
+                <h3>Recent Expenses</h3>
+              </div>
+
+              <button
+                class="text-btn"
+                type="button"
+                data-page-target="daily"
+              >
+                View all
+              </button>
+            </div>
+
+            <div
+              class="transaction-list"
+              id="dashboardRecentTransactions"
+            >
+            </div>
+
+            <div
+              class="empty-state"
+              id="dashboardRecentEmpty"
+            >
+              <span>↗</span>
+              <h4>No expenses yet</h4>
+              <p>Add your first daily expense.</p>
+            </div>
+
+          </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DAILY EXPENSE PAGE
+        ================================================== -->
+        <section
+          class="page-section"
+          data-page="daily"
+        >
+
+          <div class="section-heading">
+
+            <div>
+              <p class="section-kicker">
+                DAILY TRANSACTIONS
+              </p>
+
+              <h3>Daily Expense Manager</h3>
+
+              <p class="muted-text">
+                Record everyday spending by date and category.
+              </p>
+            </div>
+
+            <button
+              class="primary-btn"
+              id="openDailyExpenseModalBtn"
+              type="button"
+            >
+              ＋ Add Expense
+            </button>
+
+          </div>
+
+
+          <div class="mini-summary-grid">
+
+            <article class="mini-summary">
+              <span>Daily Total</span>
+              <strong id="dailyPageTotal">৳0</strong>
+            </article>
+
+            <article class="mini-summary">
+              <span>Transactions</span>
+              <strong id="dailyPageCount">0</strong>
+            </article>
+
+            <article class="mini-summary">
+              <span>Top Category</span>
+              <strong id="dailyPageTopCategory">—</strong>
+            </article>
+
+          </div>
+
+
+          <!-- FILTERS -->
+          <article class="panel filter-panel">
+
+            <div class="filter-grid">
+
+              <div class="field-group">
+                <label for="dailySearchInput">
+                  Search
+                </label>
+
+                <input
+                  type="search"
+                  id="dailySearchInput"
+                  placeholder="Search note or category"
+                />
+              </div>
+
+
+              <div class="field-group">
+                <label for="dailyCategoryFilter">
+                  Category
+                </label>
+
+                <select id="dailyCategoryFilter">
+                  <option value="all">
+                    All Categories
+                  </option>
+                </select>
+              </div>
+
+
+              <div class="field-group">
+                <label for="dailyDateFilter">
+                  Date
+                </label>
+
+                <input
+                  type="date"
+                  id="dailyDateFilter"
+                />
+              </div>
+
+
+              <div class="filter-action">
+                <button
+                  class="secondary-btn"
+                  id="clearDailyFiltersBtn"
+                  type="button"
+                >
+                  Clear
+                </button>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- DAILY LIST -->
+          <article class="panel">
+
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">
+                  TRANSACTIONS
+                </p>
+
+                <h3>Expense List</h3>
+              </div>
+            </div>
+
+            <div
+              class="transaction-list detailed-list"
+              id="dailyExpenseList"
+            >
+            </div>
+
+            <div
+              class="empty-state"
+              id="dailyExpenseEmpty"
+            >
+              <span>↗</span>
+              <h4>No daily expense found</h4>
+              <p>
+                Add your first transaction for this month.
+              </p>
+            </div>
+
+          </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN COST PAGE
+        ================================================== -->
+        <section
+          class="page-section"
+          data-page="main-cost"
+        >
+
+          <div class="section-heading">
+
+            <div>
+              <p class="section-kicker">
+                SPECIAL COSTS
+              </p>
+
+              <h3>Main Cost Manager</h3>
+
+              <p class="muted-text">
+                Rent, bills, semester fee, tour and other major costs.
+              </p>
+            </div>
+
+            <button
+              class="primary-btn"
+              id="openMainCostModalBtn"
+              type="button"
+            >
+              ＋ Add Main Cost
+            </button>
+
+          </div>
+
+
+          <div class="mini-summary-grid">
+
+            <article class="mini-summary">
+              <span>Main Cost Total</span>
+              <strong id="mainCostPageTotal">৳0</strong>
+            </article>
+
+            <article class="mini-summary">
+              <span>Entries</span>
+              <strong id="mainCostPageCount">0</strong>
+            </article>
+
+            <article class="mini-summary">
+              <span>Highest Cost</span>
+              <strong id="highestMainCost">৳0</strong>
+            </article>
+
+          </div>
+
+
+          <article class="panel">
+
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">
+                  MAIN COST LIST
+                </p>
+
+                <h3>Monthly Main Costs</h3>
+              </div>
+            </div>
+
+            <div
+              class="cost-card-grid"
+              id="mainCostList"
+            >
+            </div>
+
+            <div
+              class="empty-state"
+              id="mainCostEmpty"
+            >
+              <span>▦</span>
+              <h4>No main cost added</h4>
+              <p>
+                Add rent, bills or other major monthly costs.
+              </p>
+            </div>
+
+          </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DEBT PAGE
+        ================================================== -->
+        <section
+          class="page-section"
+          data-page="debt"
+        >
+
+          <div class="section-heading">
+
+            <div>
+              <p class="section-kicker">
+                DEBT & LOAN
+              </p>
+
+              <h3>Money To Receive & Pay</h3>
+
+              <p class="muted-text">
+                Keep receivable and payable amounts separately.
+              </p>
+            </div>
+
+            <button
+              class="primary-btn"
+              id="openDebtModalBtn"
+              type="button"
+            >
+              ＋ Add Debt
+            </button>
+
+          </div>
+
+
+          <div class="debt-summary-grid">
+
+            <article class="debt-summary receivable">
+              <span>I Will Receive</span>
+              <strong id="debtReceivableTotal">
+                ৳0
+              </strong>
+              <small>Pending receivable</small>
+            </article>
+
+            <article class="debt-summary payable">
+              <span>I Need To Pay</span>
+              <strong id="debtPayableTotal">
+                ৳0
+              </strong>
+              <small>Pending payable</small>
+            </article>
+
+          </div>
+
+
+          <div class="two-column-grid">
+
+            <article class="panel">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    RECEIVABLE
+                  </p>
+
+                  <h3>I Will Receive</h3>
+                </div>
+              </div>
+
+              <div
+                class="debt-list"
+                id="receivableList"
+              >
+              </div>
+
+              <div
+                class="empty-state compact"
+                id="receivableEmpty"
+              >
+                <span>↓</span>
+                <h4>No receivable entry</h4>
+              </div>
+
+            </article>
+
+
+            <article class="panel">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    PAYABLE
+                  </p>
+
+                  <h3>I Need To Pay</h3>
+                </div>
+              </div>
+
+              <div
+                class="debt-list"
+                id="payableList"
+              >
+              </div>
+
+              <div
+                class="empty-state compact"
+                id="payableEmpty"
+              >
+                <span>↑</span>
+                <h4>No payable entry</h4>
+              </div>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             INCOME PAGE
+        ================================================== -->
+        <section
+          class="page-section"
+          data-page="income"
+        >
+
+          <div class="section-heading">
+
+            <div>
+              <p class="section-kicker">
+                INCOME RECORD
+              </p>
+
+              <h3>Income Manager</h3>
+
+              <p class="muted-text">
+                Income is recorded separately and does not affect expense calculations.
+              </p>
+            </div>
+
+            <button
+              class="primary-btn"
+              id="openIncomeModalBtn"
+              type="button"
+            >
+              ＋ Add Income
+            </button>
+
+          </div>
+
+
+          <article class="income-hero-card">
+
+            <span>Total Recorded Income</span>
+
+            <strong id="incomePageTotal">
+              ৳0
+            </strong>
+
+            <p>
+              This amount is informational only.
+            </p>
+
+          </article>
+
+
+          <article class="panel">
+
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">
+                  INCOME HISTORY
+                </p>
+
+                <h3>Income Entries</h3>
+              </div>
+            </div>
+
+            <div
+              class="transaction-list detailed-list"
+              id="incomeList"
+            >
+            </div>
+
+            <div
+              class="empty-state"
+              id="incomeEmpty"
+            >
+              <span>＋</span>
+              <h4>No income recorded</h4>
+              <p>
+                Add an income entry for this month.
+              </p>
+            </div>
+
+          </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ANALYTICS PAGE
+        ================================================== -->
+        <section
+          class="page-section"
+          data-page="analytics"
+        >
+
+          <div class="section-heading">
+
+            <div>
+              <p class="section-kicker">
+                ANALYTICS
+              </p>
+
+              <h3>Monthly Spending Analysis</h3>
+
+              <p class="muted-text">
+                Understand your daily and category-wise spending patterns.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="analytics-grid">
+
+            <article class="panel panel-large">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    DAY BY DAY
+                  </p>
+
+                  <h3>Daily Spending</h3>
+                </div>
+              </div>
+
+              <div
+                class="chart-container tall"
+                id="analyticsDailyChart"
+              >
+              </div>
+
+            </article>
+
+
+            <article class="panel">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    EXPENSE TYPE
+                  </p>
+
+                  <h3>Main vs Daily</h3>
+                </div>
+              </div>
+
+              <div
+                class="comparison-chart"
+                id="mainVsDailyChart"
+              >
+              </div>
+
+            </article>
+
+
+            <article class="panel">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    CATEGORIES
+                  </p>
+
+                  <h3>Daily Category Breakdown</h3>
+                </div>
+              </div>
+
+              <div
+                class="category-analysis-list"
+                id="categoryAnalysisList"
+              >
+              </div>
+
+            </article>
+
+
+            <article class="panel">
+
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">
+                    MAIN COST
+                  </p>
+
+                  <h3>Main Cost Breakdown</h3>
+                </div>
+              </div>
+
+              <div
+                class="category-analysis-list"
+                id="mainCostAnalysisList"
+              >
+              </div>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             REPORT PAGE
+        ================================================== -->
+        <section
+          class="page-section"
+          data-page="report"
+        >
+
+          <div class="section-heading">
+
+            <div>
+              <p class="section-kicker">
+                REPORT & DATA
+              </p>
+
+              <h3>Monthly Report & Backup</h3>
+
+              <p class="muted-text">
+                Export monthly reports or back up all your finance data.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="settings-grid">
+
+            <article class="settings-card">
+
+              <div class="settings-icon">
+                PDF
+              </div>
+
+              <div>
+                <h4>Monthly PDF Report</h4>
+
+                <p>
+                  Download the currently selected month's complete report.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                id="downloadPdfBtn"
+                type="button"
+              >
+                Download PDF
+              </button>
+
+            </article>
+
+
+            <article class="settings-card">
+
+              <div class="settings-icon">
+                ↓
+              </div>
+
+              <div>
+                <h4>Export Backup</h4>
+
+                <p>
+                  Download all saved finance data as a JSON file.
+                </p>
+              </div>
+
+              <button
+                class="secondary-btn"
+                id="exportBackupBtn"
+                type="button"
+              >
+                Export Backup
+              </button>
+
+            </article>
+
+
+            <article class="settings-card">
+
+              <div class="settings-icon">
+                ↑
+              </div>
+
+              <div>
+                <h4>Import Backup</h4>
+
+                <p>
+                  Restore finance data from a previous JSON backup.
+                </p>
+              </div>
+
+              <input
+                type="file"
+                id="importBackupInput"
+                accept=".json,application/json"
+                hidden
+              />
+
+              <button
+                class="secondary-btn"
+                id="importBackupBtn"
+                type="button"
+              >
+                Choose Backup
+              </button>
+
+            </article>
+
+
+            <article class="settings-card danger-card">
+
+              <div class="settings-icon">
+                !
+              </div>
+
+              <div>
+                <h4>Reset Current Month</h4>
+
+                <p>
+                  Delete only the currently selected month's data.
+                </p>
+              </div>
+
+              <button
+                class="danger-btn"
+                id="resetCurrentMonthBtn"
+                type="button"
+              >
+                Reset Month
+              </button>
+
+            </article>
+
+
+            <article class="settings-card danger-card">
+
+              <div class="settings-icon">
+                !!
+              </div>
+
+              <div>
+                <h4>Reset Everything</h4>
+
+                <p>
+                  Permanently delete all saved finance data.
+                </p>
+              </div>
+
+              <button
+                class="danger-btn"
+                id="resetAllDataBtn"
+                type="button"
+              >
+                Delete All Data
+              </button>
+
+            </article>
+
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       MOBILE BOTTOM NAV
+  ====================================================== -->
+  <nav
+    class="mobile-bottom-nav"
+    aria-label="Mobile navigation"
+  >
+
+    <button
+      class="mobile-nav-item active"
+      data-page-target="dashboard"
+      type="button"
+    >
+      <span>⌂</span>
+      <small>Home</small>
+    </button>
+
+    <button
+      class="mobile-nav-item"
+      data-page-target="daily"
+      type="button"
+    >
+      <span>↗</span>
+      <small>Daily</small>
+    </button>
+
+    <button
+      class="mobile-nav-item mobile-add-trigger"
+      id="mobileQuickAddBtn"
+      type="button"
+      aria-label="Add expense"
+    >
+      <span>＋</span>
+    </button>
+
+    <button
+      class="mobile-nav-item"
+      data-page-target="main-cost"
+      type="button"
+    >
+      <span>▦</span>
+      <small>Main</small>
+    </button>
+
+    <button
+      class="mobile-nav-item"
+      id="mobileMoreBtn"
+      type="button"
+    >
+      <span>•••</span>
+      <small>More</small>
+    </button>
+
+  </nav>
+
+
+
+  <!-- =====================================================
+       MOBILE MORE MENU
+  ====================================================== -->
+  <div
+    class="mobile-more-menu"
+    id="mobileMoreMenu"
+    aria-hidden="true"
+  >
+
+    <div class="mobile-more-sheet">
+
+      <div class="sheet-handle"></div>
+
+      <div class="sheet-header">
+        <h3>More</h3>
+
+        <button
+          class="icon-btn"
+          id="closeMobileMoreBtn"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+
+
+      <button
+        class="sheet-menu-item"
+        data-page-target="debt"
+        type="button"
+      >
+        <span>⇄</span>
+        Debt / Loan
+      </button>
+
+
+      <button
+        class="sheet-menu-item"
+        data-page-target="income"
+        type="button"
+      >
+        <span>＋</span>
+        Income
+      </button>
+
+
+      <button
+        class="sheet-menu-item"
+        data-page-target="analytics"
+        type="button"
+      >
+        <span>▥</span>
+        Analytics
+      </button>
+
+
+      <button
+        class="sheet-menu-item"
+        data-page-target="report"
+        type="button"
+      >
+        <span>⇩</span>
+        Report & Backup
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       DAILY EXPENSE MODAL
+  ====================================================== -->
+  <div
+    class="modal"
+    id="dailyExpenseModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-dialog">
+
+      <div class="modal-header">
+
+        <div>
+          <p class="section-kicker">
+            DAILY EXPENSE
+          </p>
+
+          <h3 id="dailyExpenseModalTitle">
+            Add Expense
+          </h3>
+        </div>
+
+        <button
+          class="icon-btn"
+          type="button"
+          data-close-modal
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="dailyExpenseForm">
+
+        <input
+          type="hidden"
+          id="dailyExpenseEditId"
+        />
+
+
+        <div class="form-grid">
+
+          <div class="field-group">
+            <label for="dailyExpenseDate">
+              Date
+            </label>
+
+            <input
+              type="date"
+              id="dailyExpenseDate"
+              required
+            />
+          </div>
+
+
+          <div class="field-group">
+            <label for="dailyExpenseAmount">
+              Amount
+            </label>
+
+            <div class="amount-input-wrap">
+              <span>৳</span>
+
+              <input
+                type="number"
+                id="dailyExpenseAmount"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="0"
+                required
+              />
+            </div>
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="dailyExpenseCategory">
+              Category
+            </label>
+
+            <select
+              id="dailyExpenseCategory"
+              required
+            >
+              <option value="">
+                Select category
+              </option>
+
+              <option value="Food">
+                Food
+              </option>
+
+              <option value="Transport">
+                Transport
+              </option>
+
+              <option value="Shopping">
+                Shopping
+              </option>
+
+              <option value="Medicine/Health">
+                Medicine / Health
+              </option>
+
+              <option value="Entertainment">
+                Entertainment
+              </option>
+
+              <option value="Education">
+                Education
+              </option>
+
+              <option value="Personal">
+                Personal
+              </option>
+
+              <option value="Mobile/Recharge">
+                Mobile / Recharge
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+              <option value="__custom__">
+                + Custom Category
+              </option>
+
+            </select>
+          </div>
+
+
+          <div
+            class="field-group full-width hidden"
+            id="customDailyCategoryWrap"
+          >
+            <label for="customDailyCategory">
+              Custom Category
+            </label>
+
+            <input
+              type="text"
+              id="customDailyCategory"
+              maxlength="40"
+              placeholder="Example: Snacks"
+            />
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="dailyExpenseNote">
+              Note
+            </label>
+
+            <textarea
+              id="dailyExpenseNote"
+              rows="3"
+              maxlength="160"
+              placeholder="What was this expense for?"
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            class="secondary-btn"
+            type="button"
+            data-close-modal
+          >
+            Cancel
+          </button>
+
+          <button
+            class="primary-btn"
+            type="submit"
+          >
+            Save Expense
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       MAIN COST MODAL
+  ====================================================== -->
+  <div
+    class="modal"
+    id="mainCostModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-dialog">
+
+      <div class="modal-header">
+
+        <div>
+          <p class="section-kicker">
+            MAIN COST
+          </p>
+
+          <h3 id="mainCostModalTitle">
+            Add Main Cost
+          </h3>
+        </div>
+
+        <button
+          class="icon-btn"
+          type="button"
+          data-close-modal
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="mainCostForm">
+
+        <input
+          type="hidden"
+          id="mainCostEditId"
+        />
+
+
+        <div class="form-grid">
+
+          <div class="field-group full-width">
+            <label for="mainCostCategory">
+              Cost Type
+            </label>
+
+            <select
+              id="mainCostCategory"
+              required
+            >
+              <option value="">
+                Select cost type
+              </option>
+
+              <option value="Mess Rent">
+                Mess Rent
+              </option>
+
+              <option value="Khala Bill">
+                Khala Bill
+              </option>
+
+              <option value="WiFi">
+                WiFi
+              </option>
+
+              <option value="Pani">
+                Pani
+              </option>
+
+              <option value="Electricity">
+                Electricity
+              </option>
+
+              <option value="Gas">
+                Gas
+              </option>
+
+              <option value="Semester/Credit Fee">
+                Semester / Credit Fee
+              </option>
+
+              <option value="Tour/Event">
+                Tour / Event
+              </option>
+            </select>
+          </div>
+
+
+          <div class="field-group">
+            <label for="mainCostDate">
+              Date
+            </label>
+
+            <input
+              type="date"
+              id="mainCostDate"
+              required
+            />
+          </div>
+
+
+          <div class="field-group">
+            <label for="mainCostAmount">
+              Amount
+            </label>
+
+            <div class="amount-input-wrap">
+              <span>৳</span>
+
+              <input
+                type="number"
+                id="mainCostAmount"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="0"
+                required
+              />
+            </div>
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="mainCostNote">
+              Note
+            </label>
+
+            <textarea
+              id="mainCostNote"
+              rows="3"
+              maxlength="160"
+              placeholder="Optional note"
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            class="secondary-btn"
+            type="button"
+            data-close-modal
+          >
+            Cancel
+          </button>
+
+          <button
+            class="primary-btn"
+            type="submit"
+          >
+            Save Main Cost
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       DEBT MODAL
+  ====================================================== -->
+  <div
+    class="modal"
+    id="debtModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-dialog">
+
+      <div class="modal-header">
+
+        <div>
+          <p class="section-kicker">
+            DEBT / LOAN
+          </p>
+
+          <h3 id="debtModalTitle">
+            Add Debt
+          </h3>
+        </div>
+
+        <button
+          class="icon-btn"
+          type="button"
+          data-close-modal
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="debtForm">
+
+        <input
+          type="hidden"
+          id="debtEditId"
+        />
+
+
+        <div class="form-grid">
+
+          <div class="field-group full-width">
+            <label for="debtType">
+              Type
+            </label>
+
+            <select
+              id="debtType"
+              required
+            >
+              <option value="receivable">
+                I Will Receive
+              </option>
+
+              <option value="payable">
+                I Need To Pay
+              </option>
+            </select>
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="debtPerson">
+              Person Name
+            </label>
+
+            <input
+              type="text"
+              id="debtPerson"
+              maxlength="60"
+              placeholder="Enter person's name"
+              required
+            />
+          </div>
+
+
+          <div class="field-group">
+            <label for="debtDate">
+              Date
+            </label>
+
+            <input
+              type="date"
+              id="debtDate"
+              required
+            />
+          </div>
+
+
+          <div class="field-group">
+            <label for="debtAmount">
+              Amount
+            </label>
+
+            <div class="amount-input-wrap">
+              <span>৳</span>
+
+              <input
+                type="number"
+                id="debtAmount"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="0"
+                required
+              />
+            </div>
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="debtStatus">
+              Status
+            </label>
+
+            <select
+              id="debtStatus"
+              required
+            >
+              <option value="pending">
+                Pending
+              </option>
+
+              <option value="settled">
+                Settled
+              </option>
+            </select>
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="debtNote">
+              Note
+            </label>
+
+            <textarea
+              id="debtNote"
+              rows="3"
+              maxlength="160"
+              placeholder="Optional note"
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            class="secondary-btn"
+            type="button"
+            data-close-modal
+          >
+            Cancel
+          </button>
+
+          <button
+            class="primary-btn"
+            type="submit"
+          >
+            Save Debt
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       INCOME MODAL
+  ====================================================== -->
+  <div
+    class="modal"
+    id="incomeModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-dialog">
+
+      <div class="modal-header">
+
+        <div>
+          <p class="section-kicker">
+            INCOME
+          </p>
+
+          <h3 id="incomeModalTitle">
+            Add Income
+          </h3>
+        </div>
+
+        <button
+          class="icon-btn"
+          type="button"
+          data-close-modal
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="incomeForm">
+
+        <input
+          type="hidden"
+          id="incomeEditId"
+        />
+
+
+        <div class="form-grid">
+
+          <div class="field-group">
+            <label for="incomeDate">
+              Date
+            </label>
+
+            <input
+              type="date"
+              id="incomeDate"
+              required
+            />
+          </div>
+
+
+          <div class="field-group">
+            <label for="incomeAmount">
+              Amount
+            </label>
+
+            <div class="amount-input-wrap">
+              <span>৳</span>
+
+              <input
+                type="number"
+                id="incomeAmount"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="0"
+                required
+              />
+            </div>
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="incomeSource">
+              Source
+            </label>
+
+            <input
+              type="text"
+              id="incomeSource"
+              maxlength="60"
+              placeholder="Example: Salary, Freelance"
+              required
+            />
+          </div>
+
+
+          <div class="field-group full-width">
+            <label for="incomeNote">
+              Note
+            </label>
+
+            <textarea
+              id="incomeNote"
+              rows="3"
+              maxlength="160"
+              placeholder="Optional note"
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            class="secondary-btn"
+            type="button"
+            data-close-modal
+          >
+            Cancel
+          </button>
+
+          <button
+            class="primary-btn"
+            type="submit"
+          >
+            Save Income
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       CONFIRM DIALOG
+  ====================================================== -->
+  <div
+    class="modal"
+    id="confirmModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-backdrop"></div>
+
+    <div class="modal-dialog confirm-dialog">
+
+      <div class="confirm-icon">
+        !
+      </div>
+
+      <h3 id="confirmTitle">
+        Are you sure?
+      </h3>
+
+      <p
+        class="muted-text"
+        id="confirmMessage"
+      >
+        This action cannot be undone.
+      </p>
+
+      <div class="modal-actions">
+
+        <button
+          class="secondary-btn"
+          id="confirmCancelBtn"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="danger-btn"
+          id="confirmActionBtn"
+          type="button"
+        >
+          Confirm
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+  <div
+    class="toast-container"
+    id="toastContainer"
+    aria-live="polite"
+  >
+  </div>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+  <script src="app.js"></script>
+
+</body>
+</html>
